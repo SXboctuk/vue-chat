@@ -1,4 +1,5 @@
 <template>
+  <h2>Sign Up</h2>
   <FormUI @submit.prevent="handleSubmit">
     <InputUI
       type="text"

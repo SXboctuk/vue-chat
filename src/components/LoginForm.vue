@@ -1,4 +1,5 @@
 <template>
+  <h2>LOGIN</h2>
   <FormUI @submit.prevent="handleSubmit">
     <InputUI type="email" required placeholder="email" autocomplete="email" v-model="email" />
     <InputUI
