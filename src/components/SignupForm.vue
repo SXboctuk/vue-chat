@@ -16,6 +16,7 @@
       autocomplete="new-password"
       v-model="password"
     />
+    <FormError v-if="!error">{{ error }}</FormError>
     <buttonUI>Sign Up</buttonUI>
   </FormUI>
 </template>
@@ -24,14 +25,20 @@
 import buttonUI from '@/components/UI/Button.ui.vue'
 import FormUI from '@/components/UI/Form.ui.vue'
 import InputUI from '@/components/UI/Input.ui.vue'
+import FormError from '@/components/UI/FormError.ui.vue'
+import useSignup from '@/composables/useSignup'
 
 import { ref } from 'vue'
+
+const { error, signup } = useSignup()
 
 const displayName = ref('')
 const email = ref('')
 const password = ref('')
 
-const handleSubmit = () => {}
+const handleSubmit = async () => {
+  await signup(email.value, password.value, displayName.value)
+}
 </script>
 
 <style></style>
