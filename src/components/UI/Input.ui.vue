@@ -1,7 +1,10 @@
 <template>
-  <input type="text" class="input" />
+  <input type="text" class="input" v-model="defaultModel" />
 </template>
 
+<script setup lang="ts">
+const defaultModel = defineModel({ default: '' })
+</script>
 <style scoped>
 .input {
   width: 100%;
