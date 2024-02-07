@@ -29,9 +29,12 @@ const { error, login } = useLogin()
 const email = ref('')
 const password = ref('')
 
+const emits = defineEmits<{ login: [] }>()
 const handleSubmit = async () => {
   await login(email.value, password.value)
-  console.log('log')
+  if (!error.value) {
+    emits('login')
+  }
 }
 </script>
 
