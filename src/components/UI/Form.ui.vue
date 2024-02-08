@@ -1,11 +1,15 @@
 <template>
-  <form class="form">
+  <form :class="props.class ?? 'form_default'">
     <slot />
   </form>
 </template>
 
-<style scoped>
-.form {
+<script setup lang="ts">
+const props = defineProps<{ class?: string }>()
+</script>
+
+<style scoped module>
+.form_default {
   width: 300px;
   margin: 20px auto;
 }
