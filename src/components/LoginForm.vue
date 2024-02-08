@@ -10,7 +10,7 @@
       v-model="password"
     />
     <FormError v-if="error">{{ error }}</FormError>
-    <buttonUI>Log in</buttonUI>
+    <buttonUI type="submit">Log in</buttonUI>
   </FormUI>
 </template>
 

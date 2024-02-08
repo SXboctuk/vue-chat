@@ -17,7 +17,7 @@
       v-model="password"
     />
     <FormError v-if="!error">{{ error }}</FormError>
-    <buttonUI>Sign Up</buttonUI>
+    <buttonUI type="submit">Sign Up</buttonUI>
   </FormUI>
 </template>
 
