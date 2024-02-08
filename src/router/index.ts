@@ -14,7 +14,7 @@ const requireAuth = (
   next: NavigationGuardNext
 ) => {
   const { user } = getUser()
-  if (user) {
+  if (user.value) {
     next()
   } else {
     next({ name: routeNames.Welcome })
