@@ -1,8 +1,8 @@
 <template>
-  <nav class="nav">
+  <nav class="nav" v-if="user">
     <div>
-      <p class="nav__text">Hey there... display name here</p>
-      <p class="nav__text nav__text--email">Current logged in as ... email</p>
+      <p class="nav__text">Hey there {{ user.displayName }}</p>
+      <p class="nav__text nav__text--email">Current logged in as {{ user.email }} email</p>
     </div>
     <buttonUI @click="handleClick">Loguot</buttonUI>
   </nav>
@@ -13,8 +13,10 @@ import buttonUI from '@/components/UI/Button.ui.vue'
 import useLogout from '@/composables/useLogout'
 import { routeNames } from '@/router'
 import { useRouter } from 'vue-router'
+import getUser from '@/composables/getUser'
 
 const { error, loguot } = useLogout()
+const { user } = getUser()
 const router = useRouter()
 
 const handleClick = async () => {
