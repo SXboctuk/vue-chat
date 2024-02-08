@@ -4,12 +4,25 @@
       <p class="nav__text">Hey there... display name here</p>
       <p class="nav__text nav__text--email">Current logged in as ... email</p>
     </div>
-    <buttonUI>Loguot</buttonUI>
+    <buttonUI @click="handleClick">Loguot</buttonUI>
   </nav>
 </template>
 
 <script lang="ts" setup>
 import buttonUI from '@/components/UI/Button.ui.vue'
+import useLogout from '@/composables/useLogout'
+import { routeNames } from '@/router'
+import { useRouter } from 'vue-router'
+
+const { error, loguot } = useLogout()
+const router = useRouter()
+
+const handleClick = async () => {
+  await loguot()
+  if (!error.value) {
+    router.push({ name: routeNames.Welcome })
+  }
+}
 </script>
 
 <style scoped lang="scss">
