@@ -14,6 +14,7 @@ import useLogout from '@/composables/useLogout'
 import { routeNames } from '@/router'
 import { useRouter } from 'vue-router'
 import getUser from '@/composables/getUser'
+import { watch } from 'vue'
 
 const { error, loguot } = useLogout()
 const { user } = getUser()
@@ -21,10 +22,12 @@ const router = useRouter()
 
 const handleClick = async () => {
   await loguot()
+}
+watch(user, () => {
   if (!error.value) {
     router.push({ name: routeNames.Welcome })
   }
-}
+})
 </script>
 
 <style scoped lang="scss">
