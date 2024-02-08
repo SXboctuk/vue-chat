@@ -1,6 +1,25 @@
+import getUser from '@/composables/getUser'
 import Chatroom from '@/views/Chatroom.vue'
 import Welcome from '@/views/Welcome.vue'
-import { createRouter, createWebHistory } from 'vue-router'
+import {
+  createRouter,
+  createWebHistory,
+  type NavigationGuardNext,
+  type RouteLocationNormalized
+} from 'vue-router'
+
+const requireAuth = (
+  to: RouteLocationNormalized,
+  from: RouteLocationNormalized,
+  next: NavigationGuardNext
+) => {
+  const { user } = getUser()
+  if (user) {
+    next()
+  } else {
+    next({ name: routeNames.Welcome })
+  }
+}
 
 const routeNames = {
   Welcome: 'Welcome',
@@ -18,7 +37,8 @@ const router = createRouter({
     {
       path: '/chatroom',
       name: routeNames.Chatroom,
-      component: Chatroom
+      component: Chatroom,
+      beforeEnter: requireAuth
     }
   ]
 })
