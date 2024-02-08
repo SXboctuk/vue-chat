@@ -16,7 +16,7 @@
       autocomplete="new-password"
       v-model="password"
     />
-    <FormError v-if="!error">{{ error }}</FormError>
+    <FormError v-if="error">{{ error }}</FormError>
     <buttonUI type="submit">Sign Up</buttonUI>
   </FormUI>
 </template>
