@@ -16,18 +16,15 @@ const signup = async (email: string, password: string, displayName: string) => {
     }
     await updateProfile(res.user, { displayName: displayName })
 
-    console.log('user ', res.user)
-    console.log('current user', projectAuth.currentUser)
     error.value = null
     return res
   } catch (err: unknown) {
-    if (err instanceof Error) {
-      console.log(err.message)
-      error.value = err.message
-    } else {
-      console.log(err)
-      error.value = String(err)
+    if (err instanceof Error && err.message) {
+      if (err.message === 'auth/email-already-exists') {
+        error.value = 'Email already exists'
+      }
     }
+    error.value = 'Registry error, please try again'
   }
 }
 
