@@ -1,12 +1,8 @@
-import { projectFirestore } from '@/firebase/config'
-import { FieldValue, addDoc, collection } from 'firebase/firestore'
+import { projectFirestore, timestamp } from '@/firebase/config'
+import type { chatMessageType } from '@/types'
+import { addDoc, collection } from 'firebase/firestore'
 import { ref } from 'vue'
 
-export type chatMessageType = {
-  name: string
-  message: string
-  creatAt: FieldValue
-}
 const useCollections = (collectionName: string) => {
   const error = ref<null | string>(null)
 
@@ -14,7 +10,7 @@ const useCollections = (collectionName: string) => {
     error.value = null
 
     try {
-      await addDoc(collection(projectFirestore, collectionName), doc)
+      await addDoc(collection(projectFirestore, collectionName), { ...doc, creatAt: timestamp() })
     } catch (e: unknown) {
       error.value = 'could not send message'
       console.log(e)

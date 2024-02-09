@@ -16,9 +16,9 @@ import { ref } from 'vue'
 import FormUi from './UI/Form.ui.vue'
 import getUser from '@/composables/getUser'
 import { timestamp } from '@/firebase/config'
-import type { chatMessageType } from '@/composables/useCollections'
 import useCollections from '@/composables/useCollections'
 import FormErrorUi from './UI/FormError.ui.vue'
+import type { chatMessageType } from '@/types'
 
 const { user } = getUser()
 const { error, addMessage } = useCollections('messages')
@@ -29,8 +29,7 @@ const handleSubmit = async () => {
   if (user.value && user.value.displayName !== null) {
     const outgoingMessage: chatMessageType = {
       name: user.value.displayName,
-      message: message.value,
-      creatAt: timestamp()
+      message: message.value
     }
     await addMessage(outgoingMessage)
     if (!error.value) {
