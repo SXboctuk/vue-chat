@@ -20,6 +20,18 @@ const requireAuth = (
     next({ name: routeNames.Welcome })
   }
 }
+const requireNoAuth = (
+  to: RouteLocationNormalized,
+  from: RouteLocationNormalized,
+  next: NavigationGuardNext
+) => {
+  const { user } = getUser()
+  if (user.value) {
+    next({ name: routeNames.Chatroom })
+  } else {
+    next()
+  }
+}
 
 const routeNames = {
   Welcome: 'Welcome',
@@ -32,7 +44,8 @@ const router = createRouter({
     {
       path: '/',
       name: routeNames.Welcome,
-      component: Welcome
+      component: Welcome,
+      beforeEnter: requireNoAuth
     },
     {
       path: '/chatroom',

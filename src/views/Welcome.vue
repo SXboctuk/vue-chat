@@ -3,14 +3,14 @@
     Welcome
     <template v-if="showLogin">
       <login-form @login="enterChat" />
-      <p>
+      <p class="bottom-text">
         No account yet? <span class="span-button" @click="showLogin = false"> Sign up </span>
         instead
       </p>
     </template>
     <template v-else>
       <signup-form @signup="enterChat" />
-      <p>
+      <p class="bottom-text">
         Already registered?
         <span class="span-button" @click="showLogin = true"> Log in </span>
         instead
@@ -35,7 +35,7 @@ const enterChat = () => {
 }
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
 .welcome {
   text-align: center;
   padding: 20px 0;
@@ -48,5 +48,8 @@ const enterChat = () => {
   &:hover {
     color: #5ae4ca;
   }
+}
+.bottom-text {
+  margin-top: 12px;
 }
 </style>
