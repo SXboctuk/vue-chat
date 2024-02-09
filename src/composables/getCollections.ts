@@ -1,7 +1,7 @@
 import { projectFirestore } from '@/firebase/config'
 import type { chatMessageTypeWithCreatAtAndId } from '@/types'
 import { collection, onSnapshot, orderBy, query } from 'firebase/firestore'
-import { ref } from 'vue'
+import { ref, watchEffect } from 'vue'
 
 const getCollections = (collectionName: string) => {
   const documents = ref<chatMessageTypeWithCreatAtAndId[] | null>(null)
@@ -9,7 +9,7 @@ const getCollections = (collectionName: string) => {
 
   const collectionRef = collection(projectFirestore, collectionName)
 
-  onSnapshot(
+  const snapshot = onSnapshot(
     query(collectionRef, orderBy('creatAt')),
     (snapshot) => {
       const result: chatMessageTypeWithCreatAtAndId[] = []
@@ -22,11 +22,16 @@ const getCollections = (collectionName: string) => {
       documents.value = result
       error.value = null
     },
-    (e) => {
+    (_e) => {
       documents.value = null
       error.value = 'Could not fetch data'
     }
   )
+  watchEffect((onInvalidate) => {
+    onInvalidate(() => {
+      snapshot()
+    })
+  })
 
   return { error, documents }
 }
